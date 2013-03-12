@@ -3,6 +3,7 @@
 #include <string>
 #include "../../cJSON/cJSON.h"
 #include <string.h>
+#include <exiv2/exiv2.hpp>
 
 #define GOOGLE_BASE_URL "https://maps.googleapis.com/maps/api/browserlocation/json?browser=none&sensor=false"
 
@@ -104,5 +105,43 @@ int main() {
         };
 	GeoLocateResult result = geolocate_locate(macs, 4);
 	std::cout << "lat " << result.lat << " lon " << result.lon << " accuracy " << result.accuracy << " succeeded " << result.success << std::endl;
+
+    	Exiv2::ExifData exifData;
+	Exiv2::Image::AutoPtr image;
+
+	std::string file("photo.jpg");
+
+        try {
+               image = Exiv2::ImageFactory::open(file);
+        } catch(Exiv2::Error e) {
+               fprintf(stderr, "Failed to open file %s.\n", file.c_str());
+               return 0;
+        }
+	image->readMetadata();
+	if (image.get() == NULL) {
+		fprintf(stderr, "Failed to read file %s.\n", file.c_str());
+		return 0;
+	}
+	exifData = image->exifData();
+	Exiv2::Exifdatum& tag = exifData["Exif.Photo.DateTimeOriginal"];
+	std::string date = tag.toString();
+	std::cout << "date is " << date << std::endl;
+
+//	Exiv2::Exifdatum& gpsVer = exifData["Exif.GPSInfo.GPSVersionID"];
+
+	Exiv2::Exifdatum& lat = exifData["Exif.GPSInfo.GPSLatitude"];
+	Exiv2::Exifdatum& lon = exifData["Exif.GPSInfo.GPSLongitude"];
+	Exiv2::Exifdatum& latRef = exifData["Exif.GPSInfo.GPSLatitudeRef"];
+	Exiv2::Exifdatum& lonRef = exifData["Exif.GPSInfo.GPSLongitudeRef"];
+
+//	std::cout << "gps vers " << gpsVer << std::endl;
+	std::cout << "lat " << lat.toString() << " ref " << latRef.toString() << " lon " << lon.toString() << " ref " << lonRef.toString() << std::endl;
+
+	Exiv2::ExifData::const_iterator i;
+	for (i = exifData.begin(); i != exifData.end(); i++) {
+		std::cout << i->key() << ": " << i->value() << std::endl;
+	}
+
+
 	return 0;
 }

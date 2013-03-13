@@ -61,6 +61,9 @@ LogFileResult parseLogFile(std::string &fileName, std::string &imageName) {
 			AccessPoint ap;
 			ap.time = time;
 			ap.mac_address = mac;
+			if (signal > 0) {
+				signal = -98 + signal;
+			}
 			ap.signal = signal;
 			result.aps.push_back(ap);
 		}

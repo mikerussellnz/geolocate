@@ -1,9 +1,12 @@
 #include <curl/curl.h>
 #include <iostream>
 #include <string>
+#include <sstream>
+#include <vector>
 #include "geolocate.h"
 #include "../cJSON/cJSON.h"
 #include <string.h>
+
 
 #define GOOGLE_BASE_URL "https://maps.googleapis.com/maps/api/browserlocation/json?browser=none&sensor=false"
 
@@ -13,22 +16,30 @@ size_t write_data(void *buffer, size_t size, size_t nmemb, void *userp) {
 	return size * nmemb;
 }
 
-GeoLocateResult geolocate_locate(const char **macs, int count) {
+GeoLocateResult geolocate_locate(std::vector<AccessPoint> aps) {
 	CURL *curl = curl_easy_init();
 
 	GeoLocateResult result;
 	result.success = 0;
 
-	std::string url = std::string(GOOGLE_BASE_URL);
-	for (int i = 0; i < count; i++) {
-		url.append("&wifi=mac:");
-		url.append(macs[i]);
+	//std::string url = std::string(GOOGLE_BASE_URL);
+
+	std::ostringstream url;
+	url << GOOGLE_BASE_URL;
+//s << "select logged from login where id = " << ClientID;
+//std::string query(s.str());
+
+	for (int i = 0; i < aps.size(); i++) {
+		url << "&wifi=mac:" << aps[i].mac_address;
+		if (aps[i].signal != 0) {
+			url << "|ss:" << aps[i].signal;
+		}
 	}
 
-	std::cout << "querying: " << url << std::endl;
+	std::cout << "querying: " << url.str() << std::endl;
 	std::string response;
 
-	curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+	curl_easy_setopt(curl, CURLOPT_URL, url.str().c_str());
 	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
 	curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
 	int success = curl_easy_perform(curl);

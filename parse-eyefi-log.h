@@ -3,14 +3,7 @@
 
 #include <string>
 #include <vector>
-
-class AccessPoint {
-public:
-        std::string mac_address;
-        int time;
-        int signal;
-        std::string data;
-};
+#include "access-point.h"
 
 class LogFileResult {
 public:

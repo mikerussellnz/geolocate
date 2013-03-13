@@ -62,7 +62,7 @@ LogFileResult parseLogFile(std::string &fileName, std::string &imageName) {
 			ap.time = time;
 			ap.mac_address = mac;
 			if (signal > 0) {
-				signal = -98 + signal;
+				signal -= 96;
 			}
 			ap.signal = signal;
 			result.aps.push_back(ap);

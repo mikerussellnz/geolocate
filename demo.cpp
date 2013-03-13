@@ -16,8 +16,8 @@ int main() {
         };
 */
 
-	std::string file("../pics/IMG_0020.JPG.log");
-	std::string imageName("IMG_0020.JPG");
+	std::string file("../pics/IMG_0024.JPG.log");
+	std::string imageName("IMG_0024.JPG");
 	LogFileResult result = parseLogFile(file, imageName);
 
 	std::cout << "result found " << result.image_found << " at " << result.image_time << std::endl;

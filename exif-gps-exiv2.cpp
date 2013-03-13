@@ -36,6 +36,25 @@ void readDateTime(std::string &file) {
 */
 }
 
+void writeGPS(std::string &file)  {
+	Exiv2::ExifData exifData;
+	Exiv2::Image::AutoPtr image;
+
+        try {
+               image = Exiv2::ImageFactory::open(file);
+        } catch(Exiv2::Error e) {
+               fprintf(stderr, "Failed to open file %s.\n", file.c_str());
+//               return 0;
+        }
+        image->readMetadata();
+        if (image.get() == NULL) {
+                fprintf(stderr, "Failed to read file %s.\n", file.c_str());
+  //              return 0;
+        }
+        exifData = image->exifData();
+
+}
+
 ExifGPS readGPS(std::string &file) {
 	Exiv2::ExifData exifData;
         Exiv2::Image::AutoPtr image;

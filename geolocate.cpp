@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include "geolocate.h"
-#include "../../cJSON/cJSON.h"
+#include "../cJSON/cJSON.h"
 #include <string.h>
 
 #define GOOGLE_BASE_URL "https://maps.googleapis.com/maps/api/browserlocation/json?browser=none&sensor=false"
@@ -13,7 +13,7 @@ size_t write_data(void *buffer, size_t size, size_t nmemb, void *userp) {
 	return size * nmemb;
 }
 
-GeoLocateResult geolocate_locate(char **macs, int count) {
+GeoLocateResult geolocate_locate(const char **macs, int count) {
 	CURL *curl = curl_easy_init();
 
 	GeoLocateResult result;

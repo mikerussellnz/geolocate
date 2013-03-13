@@ -9,6 +9,6 @@ typedef struct {
         int success;
 } GeoLocateResult;
 
-GeoLocateResult geolocate_locate(char **macs, int count);
+GeoLocateResult geolocate_locate(const char **macs, int count);
 
 #endif

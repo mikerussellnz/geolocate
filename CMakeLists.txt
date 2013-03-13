@@ -9,5 +9,5 @@ set(CMAKE_MODULE_PATH
 find_package(CURL)
 find_package(exiv2)
 
-add_executable(geolocate geolocate.cpp ../../cJSON/cJSON.c)
+add_executable(geolocate demo.cpp exif-gps-exiv2.cpp geolocate.cpp ../../cJSON/cJSON.c)
 target_link_libraries(geolocate ${CURL_LIBRARY} ${EXIV2_LIBRARIES})

@@ -3,7 +3,7 @@ project(geolocate)
 
 set(CMAKE_MODULE_PATH
 	${CMAKE_MODULE_PATH}
-	"${CMAKE_SOURCE_DIR}/"
+	"${PROJECT_SOURCE_DIR}/"
 )
 
 find_package(CURL)

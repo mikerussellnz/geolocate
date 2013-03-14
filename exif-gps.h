@@ -10,5 +10,6 @@ typedef struct {
 
 void dumpAllExif(std::string &file);
 ExifGPS readGPS(std::string &file);
+void writeGPS(std::string &file, ExifGPS gps);
 
 #endif

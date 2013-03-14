@@ -23,23 +23,28 @@ int main() {
 	std::cout << "result found " << result.image_found << " at " << result.image_time << std::endl;
 	std::cout << result.aps.size() << " aps." << std::endl;
 
-//	const char **macs2 = (const char**)malloc(sizeof(const char *) * result.aps.size());
-
 	for (int i = 0; i < result.aps.size(); i++) {
 		AccessPoint point = result.aps[i];
 		std::cout << "ap " << point.mac_address << " with signal " << point.signal << " at "  << point.time << std::endl;
-//		macs2[i] = point.mac_address.c_str();
 	}
 
         GeoLocateResult gresult = geolocate_locate(result.aps);
 	std::cout << "lat " << gresult.lat << " lon " << gresult.lon << " accuracy " <<  gresult.accuracy << " succeeded " << gresult.success << std::endl;
 
+	
+
+	std::string imgFile("photo.jpg");
+	dumpAllExif(imgFile);
+ExifGPS gps = readGPS(imgFile);
+
+	std::cout << "gps lat " << gps.lat << " gps lon " << gps.lon << std::endl;
 
 
-//	dumpAllExif(file);
-//	ExifGPS gps = readGPS(file);
+	std::string tmpFile("test.jpg");
+	writeGPS(tmpFile, gps);
 
-//	std::cout << "gps lat " << gps.lat << " gps lon " << gps.lon << std::endl;
+	dumpAllExif(tmpFile);
+
 	return 0;
 }
 

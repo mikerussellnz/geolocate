@@ -22,12 +22,8 @@ GeoLocateResult geolocate_locate(std::vector<AccessPoint> aps) {
 	GeoLocateResult result;
 	result.success = 0;
 
-	//std::string url = std::string(GOOGLE_BASE_URL);
-
 	std::ostringstream url;
 	url << GOOGLE_BASE_URL;
-//s << "select logged from login where id = " << ClientID;
-//std::string query(s.str());
 
 	for (int i = 0; i < aps.size(); i++) {
 		url << "&wifi=mac:" << aps[i].mac_address;

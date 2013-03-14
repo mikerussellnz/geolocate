@@ -4,7 +4,7 @@
 #include <sstream>
 #include <vector>
 #include "geolocate.h"
-#include "../cJSON/cJSON.h"
+#include "cJSON/cJSON.h"
 #include <string.h>
 
 

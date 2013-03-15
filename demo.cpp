@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
-#include "geolocate.h"
-#include "exif-gps.h"
-#include "parse-eyefi-log.h"
+#include "src/geolocate.h"
+#include "src/exif-gps.h"
+#include "src/parse-eyefi-log.h"
 #include <string.h>
 #include <cstdio>
 #include <cstdlib>
